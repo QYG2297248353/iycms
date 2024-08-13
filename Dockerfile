@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-WORKDIR /opt/iycms
+WORKDIR /app/iycms
 
 RUN apt-get update && apt-get install -y \
     wget \
@@ -8,17 +8,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/latest?os=1&kind=x86_64" -O iycms.zip \
-    && unzip -o -q iycms.zip -d /opt/iycms \
-    && rm -f iycms.zip
+    && unzip -o -q iycms.zip -d /app/iycms \
+    && rm -f iycms.zip \
+    && chmod +x /app/iycms/cms
 
-VOLUME ["/app/iycms"]
+VOLUME ["/app/iycms/data", "/app/iycms/config.conf"]
 
 EXPOSE 80
 EXPOSE 21007
 
-CMD ["/bin/sh", "-c", "\
-    if [ ! -f \"/app/iycms/cms\" ]; then \
-        cp -r /opt/iycms/* /app/iycms/; \
-    fi; \
-    chmod +x /app/iycms/cms; \
-    /app/iycms/cms"]
+CMD ["/app/iycms/cms"]
