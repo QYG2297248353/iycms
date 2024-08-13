@@ -24,7 +24,7 @@ RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/lates
 # 设置挂载点
 VOLUME ["/app/iycms"]
 
-COPY --from=build /opt/iycms /app/iycms
+RUN cp -r /opt/iycms/* /app/iycms/
 
 # 暴露必要的端口
 EXPOSE 80
