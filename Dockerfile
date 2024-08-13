@@ -2,16 +2,14 @@ FROM ubuntu:latest
 
 WORKDIR /opt/iycms
 
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     wget \
     unzip \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/latest?os=1&kind=x86_64" -O iycms.zip \
-    && unzip -o -q iycms.zip -d /opt/iycms
-
-#COPY iycms.zip /opt/iycms/iycms.zip
-#RUN unzip -o -q /opt/iycms/iycms.zip -d /opt/iycms && rm -f /opt/iycms/iycms.zip && ls -al /opt/iycms && chmod +x /opt/iycms/cms
+    && unzip -o -q iycms.zip -d /opt/iycms \
+    && rm -f iycms.zip
 
 VOLUME ["/app/iycms"]
 
