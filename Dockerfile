@@ -11,13 +11,13 @@ RUN apk add --no-cache \
     && rm -rf /var/cache/apk/*
 
 # 下载并解压爱影CMS最新版本
-#RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/latest?os=1&kind=x86_64" -O iycms.zip \
-#    && unzip -o -q iycms.zip -d /home/iycms \
-#    && rm -f iycms.zip
+RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/latest?os=1&kind=x86_64" -O iycms.zip \
+   && unzip -o -q iycms.zip -d /home/iycms \
+   && rm -f iycms.zip
 
 # 使用本地文件而不是wget下载
-COPY iycms.zip /app/iycms/iycms.zip
-RUN unzip -o -q /app/iycms/iycms.zip -d /app/iycms && rm -f /app/iycms/iycms.zip
+# COPY iycms.zip /app/iycms/iycms.zip
+# RUN unzip -o -q /app/iycms/iycms.zip -d /app/iycms && rm -f /app/iycms/iycms.zip
 
 # 配置权限
 RUN chmod +x /app/iycms/cms
