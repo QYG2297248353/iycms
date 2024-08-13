@@ -12,7 +12,7 @@ RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/lates
     && rm -f iycms.zip \
     && chmod +x /app/iycms/cms
 
-VOLUME ["/app/iycms/data", "/app/iycms/config.conf"]
+VOLUME ["/app/iycms/data"]
 
 EXPOSE 80
 EXPOSE 21007
