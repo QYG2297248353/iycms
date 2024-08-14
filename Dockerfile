@@ -8,13 +8,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/latest?os=1&kind=x86_64" -O iycms.zip \
-    && unzip -o -q iycms.zip -d /app/iycms \
+    && unzip -o -q iycms.zip -d /opt/iycms \
     && rm -f iycms.zip \
-    && chmod +x /app/iycms/cms
+    && chmod +x /opt/iycms/cms
 
-VOLUME ["/app/iycms/data"]
+VOLUME ["/app/iycms"]
 
 EXPOSE 80
 EXPOSE 21007
 
-CMD ["/app/iycms/cms"]
+CMD ["/bin/bash", "-c", "if [ -z \"$(ls -A /app/iycms)\" ]; then cp -r /opt/iycms/* /app/iycms/; fi && exec /app/iycms/cms"]
