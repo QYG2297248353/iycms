@@ -16,3 +16,5 @@ services:
     ports:
       - ${PANEL_APP_PORT_HTTP}:80
       - ${PANEL_APP_PORT_ADMIN}:21007
+    volumes:
+      - ${IYCMS_ROOT_PATH}/iycms:/app/iycms
