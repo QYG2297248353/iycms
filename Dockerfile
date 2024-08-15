@@ -12,9 +12,15 @@ RUN wget --no-check-certificate "https://www.iycms.com/api/v1/download/cms/lates
     && rm -f iycms.zip \
     && chmod +x /opt/iycms/cms
 
+RUN echo '#!/bin/bash\n' \
+    'cp -r /opt/iycms/cms /opt/iycms/html /app/iycms/\n' \
+    'chmod +x /app/iycms/cms\n' \
+    'exec /app/iycms/cms\n' > /start.sh \
+    && chmod +x /start.sh
+
 VOLUME ["/app/iycms"]
 
 EXPOSE 80
 EXPOSE 21007
 
-CMD ["/bin/bash", "-c", "if [ -z \"$(ls -A /app/iycms)\" ]; then cp -r /opt/iycms/* /app/iycms/; fi && exec /app/iycms/cms"]
+CMD ["/bin/bash", "/start.sh"]
