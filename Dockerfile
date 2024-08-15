@@ -1,4 +1,4 @@
-FROM ubuntu:24.10
+FROM ubuntu:latest
 
 WORKDIR /app/iycms
 
